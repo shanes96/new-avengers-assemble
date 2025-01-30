@@ -1,0 +1,8 @@
+<div *ngFor="let profile of userProfiles">
+  <h2>{{ profile.name }}</h2>
+  <p>Email: {{ profile.email }}</p>
+  <p>Bio: {{ profile.bio }}</p>
+  <p>Wins: {{ profile.userWins }}</p>
+  <p>Losses: {{ profile.userLosses }}</p>
+  <img *ngIf="profile.profileImage" [src]="profile.profileImage" alt="Profile Image">
+</div>
