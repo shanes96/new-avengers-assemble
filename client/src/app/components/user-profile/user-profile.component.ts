@@ -18,7 +18,6 @@ export class UserProfileComponent implements OnInit {
     this.userProfileService.getUserProfiles().subscribe(
       (data) => {
         this.userProfiles = data;
-        console.log(this.userProfiles);  // Log the data to verify it
       },
       (error) => {
         console.error('Error fetching user profiles', error);
