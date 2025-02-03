@@ -1,56 +1,51 @@
-.navbar {
+@import "primeicons/primeicons.css";
+
+.custom-menubar {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: left;
-  color: white;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 0 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.navbar__item {
-  flex-basis: 20%;
-  list-style-type: none;
-  color: white
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
 }
 
-
-#profile_picture {
-  width: 40px;
-  height: 40px;
+.menu-icon {
+  font-size: 1.2rem;
 }
 
-#profile_pic_nav_bar {
-  right: 120px;
-  list-style-type: none;
+.menu-end {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-#content_nav_bar {
-  margin-left: 450px;
+.search-bar {
+  width: 150px;
+  border: 1px solid #d3d3d3;  
+  padding: 0.5em;
+  border-radius: 4px;
 }
 
-
-#spiderman-img {
-  width: 100px;
-  position: relative;
-  transition: transform 0.2s;
-  margin-left: 100px;
-  background-color: transparent;
+.search-bar:focus {
+  border-color: #a0a0a0;  
+  outline: none;  
 }
 
-#spiderman-img:before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  z-index: -1;
-  transition: transform 0.2s;
+.avatar {
+  width: 32px;
+  height: 32px;
 }
 
-#spiderman-img:hover {
-  transform: scale(1.1);
-}
-
-#spiderman-img:before:hover {
-  transform: scale(1.1);
+.auth-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
 }
