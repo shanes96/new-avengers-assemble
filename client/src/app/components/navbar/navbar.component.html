@@ -1,17 +1,31 @@
-<p-menubar>
-  <ng-template pTemplate="start">
-    <span class="font-bold">My Navbar</span>
-    <a href="#">
-      <i class="pi pi-star"></i> Battles
+<p-menubar [model]="menuItems" class="custom-menubar">
+  <ng-template #start>
+    <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="..." fill="var(--primary-color)" />
+    </svg>
+  </ng-template>
+
+  <ng-template #item let-item let-root="root">
+    <a pRipple class="menu-item">
+      <i [ngClass]="item.icon" class="menu-icon"></i>
+      <span>{{ item.label }}</span>
     </a>
   </ng-template>
-  <ng-template pTemplate="menuitem">
+
+  <ng-template #end>
+    <div class="menu-end">
+      <input type="text" pInputText placeholder="Search" class="search-bar" (input)="onSearch($event)" />
   
-    <a href="#">
-      <i class="pi pi-book"></i> Comics
-    </a>
-    <a href="#">
-      <i class="pi pi-film"></i> Movies
-    </a>
+      <ng-container *ngFor="let profile of userProfiles">
+        <p-avatar *ngIf="profile.profileImage" [image]="profile.profileImage" shape="circle" class="avatar"></p-avatar>
+      </ng-container>
+  
+      <p-tieredMenu [model]="userMenu" popup #menu></p-tieredMenu>
+    </div>
   </ng-template>
-</p-menubar>
+  
+
+<div *ngIf="!isLoggedIn" class="auth-buttons">
+  <a pButton label="Login" routerLink="/login" class="p-button p-mr-2"></a>
+  <a pButton label="Register" routerLink="/register" class="p-button"></a>
+</div>

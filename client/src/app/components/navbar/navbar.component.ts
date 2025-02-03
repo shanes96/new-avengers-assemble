@@ -1,66 +1,60 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { UserProfileService } from '../../services/user-profile.service';
-import { MenubarModule } from 'primeng/menubar';  // Correct import for p-menubar
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-
+import { Menubar } from 'primeng/menubar';
+import { AvatarModule } from 'primeng/avatar';
+import { InputTextModule } from 'primeng/inputtext';
+import { CommonModule } from '@angular/common';
+import { Ripple } from 'primeng/ripple';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { UserProfileService } from '../../services/user-profile.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  imports: [CommonModule, MenubarModule],  // Import MenubarModule
+  imports: [Menubar, BadgeModule, AvatarModule, InputTextModule, Ripple, CommonModule, OverlayBadgeModule, TieredMenuModule]
 })
 export class NavbarComponent {
-  items: MenuItem[] | undefined;
+    constructor(private userProfileService: UserProfileService) { }
+    userProfiles: any[] = [];
+    items: MenuItem[] | undefined;
+    isLoggedIn = false;
+    cartItemCount: number = 3;
+    
 
-  ngOnInit() {
-      this.items = [
-          {
-              label: 'Home',
-              icon: 'pi pi-home'
+    ngOnInit(): void {
+        this.userProfileService.getUserProfiles().subscribe(
+          (data) => {
+            this.userProfiles = data;
+            console.log(this.userProfiles);
           },
-          {
-              label: 'Features',
-              icon: 'pi pi-star'
-          },
-          {
-              label: 'Projects',
-              icon: 'pi pi-search',
-              items: [
-                  {
-                      label: 'Components',
-                      icon: 'pi pi-bolt'
-                  },
-                  {
-                      label: 'Blocks',
-                      icon: 'pi pi-server'
-                  },
-                  {
-                      label: 'UI Kit',
-                      icon: 'pi pi-pencil'
-                  },
-                  {
-                      label: 'Templates',
-                      icon: 'pi pi-palette',
-                      items: [
-                          {
-                              label: 'Apollo',
-                              icon: 'pi pi-palette'
-                          },
-                          {
-                              label: 'Ultima',
-                              icon: 'pi pi-palette'
-                          }
-                      ]
-                  }
-              ]
-          },
-          {
-              label: 'Contact',
-              icon: 'pi pi-envelope'
+          (error) => {
+            console.error('Error fetching user profiles', error);
           }
-      ]
+        );
+      }
+  
+    menuItems = [
+      { label: 'Battles', icon: 'pi pi-star', routerLink: '/battles' },
+      { label: 'Comics', icon: 'pi pi-book', routerLink: '/comics' },
+      { label: 'Movies', icon: 'pi pi-video', routerLink: '/movies' },
+      { label: 'Cart', icon: 'pi pi-shopping-cart', routerLink: '/shoppingcart' }
+    ];
+  
+    userMenu = [
+      { label: 'Your Profile', icon: 'pi pi-user', routerLink: '/profile' },
+      { label: 'Log Out', icon: 'pi pi-sign-out', command: () => this.logout() }
+    ];
+  
+    onSearch(event: any) {
+      console.log('Search:', event.target.value);
+    }
+  
+    logout() {
+      console.log('Logging out...');
+      this.isLoggedIn = false;
+    }
   }
-}
