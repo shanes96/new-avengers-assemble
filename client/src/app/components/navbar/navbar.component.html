@@ -1,11 +1,17 @@
 <p-menubar>
   <ng-template pTemplate="start">
     <span class="font-bold">My Navbar</span>
+    <a href="#">
+      <i class="pi pi-star"></i> Battles
+    </a>
   </ng-template>
-  <ng-template pTemplate="menuitem" let-item>
-    <a routerLink="/battles">Battles</a>
-    <a routerLink="/comics">Comics</a>
-    <a routerLink="/movies">Movies</a>
+  <ng-template pTemplate="menuitem">
+  
+    <a href="#">
+      <i class="pi pi-book"></i> Comics
+    </a>
+    <a href="#">
+      <i class="pi pi-film"></i> Movies
+    </a>
   </ng-template>
 </p-menubar>
-

@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { UserProfileService } from '../../services/user-profile.service';
 import { MenubarModule } from 'primeng/menubar';  // Correct import for p-menubar
+import { MenuItem } from 'primeng/api';
+
 
 @Component({
   selector: 'app-navbar',
@@ -11,20 +13,54 @@ import { MenubarModule } from 'primeng/menubar';  // Correct import for p-menuba
   imports: [CommonModule, MenubarModule],  // Import MenubarModule
 })
 export class NavbarComponent {
-  userProfiles: any[] = [];
-  isLoggedIn = true;
+  items: MenuItem[] | undefined;
 
-  constructor(private userProfileService: UserProfileService) { }
-
-  ngOnInit(): void {
-    this.userProfileService.getUserProfiles().subscribe(
-      (data) => {
-        this.userProfiles = data;
-      },
-      (error) => {
-        console.error('Error fetching user profiles', error);
-      }
-    );
+  ngOnInit() {
+      this.items = [
+          {
+              label: 'Home',
+              icon: 'pi pi-home'
+          },
+          {
+              label: 'Features',
+              icon: 'pi pi-star'
+          },
+          {
+              label: 'Projects',
+              icon: 'pi pi-search',
+              items: [
+                  {
+                      label: 'Components',
+                      icon: 'pi pi-bolt'
+                  },
+                  {
+                      label: 'Blocks',
+                      icon: 'pi pi-server'
+                  },
+                  {
+                      label: 'UI Kit',
+                      icon: 'pi pi-pencil'
+                  },
+                  {
+                      label: 'Templates',
+                      icon: 'pi pi-palette',
+                      items: [
+                          {
+                              label: 'Apollo',
+                              icon: 'pi pi-palette'
+                          },
+                          {
+                              label: 'Ultima',
+                              icon: 'pi pi-palette'
+                          }
+                      ]
+                  }
+              ]
+          },
+          {
+              label: 'Contact',
+              icon: 'pi pi-envelope'
+          }
+      ]
   }
 }
-
