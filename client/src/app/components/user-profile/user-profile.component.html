@@ -1,8 +1,53 @@
-<div *ngFor="let profile of userProfiles">
-  <h2>{{ profile.name }}</h2>
-  <p>Email: {{ profile.email }}</p>
-  <p>Bio: {{ profile.bio }}</p>
-  <p>Wins: {{ profile.userWins }}</p>
-  <p>Losses: {{ profile.userLosses }}</p>
-  <img *ngIf="profile.profileImage" [src]="profile.profileImage" alt="Profile Image">
-</div>
+<section class="user-details">
+  <div *ngFor="let profile of userProfiles" class="profile-card">
+    <div class="profile-header">
+      <p-avatar *ngIf="profile.profileImage" [image]="profile.profileImage" shape="circle" size="normal" class="profile-avatar"></p-avatar>
+      <h2 class="profile-name">{{ profile.name }}</h2>
+      <p class="profile-username">{{ profile.username }}</p>
+    </div>
+
+    <div class="profile-info">
+      <p><strong>Email:</strong> {{ profile.email }}</p>
+      <p><strong>Bio:</strong> {{ profile.bio }}</p>
+      <p class="record-badge">🏆 Record: {{ profile.userWins }} - {{ profile.userLosses }}</p>
+    </div>
+  </div>
+
+  <h3 class="section-title">🎬 Favorite Movies</h3>
+  <p-carousel [value]="favoriteMovies" [numVisible]="3" [circular]="true" [autoplayInterval]="3000">
+    <ng-template pTemplate="item" let-movie>
+      <div class="card movie-card">
+        <img [src]="movie.picture" alt="{{ movie.title }}" class="media-image" />
+        <div class="media-details">
+          <div class="media-title">{{ movie.title }}</div>
+          <div class="icon-bar">
+            <div class="price-tag">${{ movie.price }}</div>
+            <div class="icon-group">
+              <p-button class="icon-button heart-icon"><i class="pi pi-heart"></i></p-button>
+              <p-button class="icon-button cart-icon"><i class="pi pi-shopping-cart"></i></p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+
+  <h3 class="section-title">📚 Favorite Comics</h3>
+  <p-carousel [value]="favoriteComics" [numVisible]="3" [circular]="true" [autoplayInterval]="3000">
+    <ng-template pTemplate="item" let-comic>
+      <div class="card comic-card">
+        <img [src]="comic.picture" alt="{{ comic.title }}" class="media-image" />
+        <div class="media-details">
+          <div class="media-title">{{ comic.title }}</div>
+          <div class="icon-bar">
+            <div class="price-tag">${{ comic.price }}</div>
+            <div class="icon-group">
+              <p-button class="icon-button heart-icon"><i class="pi pi-heart"></i></p-button>
+              <p-button class="icon-button cart-icon"><i class="pi pi-shopping-cart"></i></p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</section>
