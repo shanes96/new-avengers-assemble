@@ -7,6 +7,7 @@
         public string Email { get; set; }
         public string Bio {  get; set; }
         public string ProfileImage { get; set; }
+        public string PasswordHash { get; set; }
         public ICollection<UserComic> FavoriteComics { get; set; }
         public ICollection<UserMovie> FavoriteMovies { get; set; }
         public int? UserWins { get; set; }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Data;
 
@@ -11,9 +12,11 @@ using Server.Data;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250212170325_AddAuthTokenTable")]
+    partial class AddAuthTokenTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,10 +228,6 @@ namespace Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ProfileImage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -250,8 +249,7 @@ namespace Server.Migrations
                             Bio = "I can do this all day",
                             Email = "steverodgers@avengers.com",
                             Name = "Steve Rodgers",
-                            PasswordHash = "91d490Jb5NsDadCa83psK5qD3qDlPnvVdBLksGDmB/c=",
-                            ProfileImage = "https://i.pinimg.com/originals/dd/6e/03/dd6e032795a2b5c9c148fd0db0f88af3.jpg",
+                            ProfileImage = "https://ca.slack-edge.com/T6G3NJMK5-U02S94DBXLP-d199360ebd76-512",
                             UserLosses = 2,
                             UserWins = 10
                         },
@@ -261,7 +259,6 @@ namespace Server.Migrations
                             Bio = "Genius, billionaire, playboy, philanthropist",
                             Email = "tonystark@avengers.com",
                             Name = "Tony Stark",
-                            PasswordHash = "91d490Jb5NsDadCa83psK5qD3qDlPnvVdBLksGDmB/c=",
                             ProfileImage = "https://media1.popsugar-assets.com/files/thumbor/ZCWD9YXxqYzk9riO2WR2OrxzWUw/721x0:1801x1080/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/01/098/n/46207611/5d2cc4f65d1ab1d1992803.52716266_/i/Why-Tony-Stark-Best-Marvel-Character.jpg",
                             UserLosses = 1,
                             UserWins = 3000

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Security.Cryptography;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Server.Models;
 
 namespace Server.Data
@@ -14,6 +16,8 @@ namespace Server.Data
         public DbSet<UserMovie> UserMovies { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Comic> Comics { get; set; }
+        public DbSet<AuthToken> AuthTokens { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,7 +30,8 @@ namespace Server.Data
        new Comic { Id = 1, Title = "Marvel Previews (2017)", Picture = "http://i.annihil.us/u/prod/marvel/i/mg/c/80/5e3d7536c8ada", Extension = "jpg", Price = 10.99m },
        new Comic { Id = 2, Title = "Iron Man (2022) #1", Picture = "http://i.annihil.us/u/prod/marvel/i/mg/b/c0/639a7b035cbaa", Extension = "jpg",  Price = 21.99m }
    );
-
+            var password = "supersecret";
+            var hashedPassword = HashPassword(password);
             modelBuilder.Entity<UserProfile>().HasData(
        new UserProfile
        {
@@ -34,7 +39,8 @@ namespace Server.Data
            Name = "Steve Rodgers",
            Email = "steverodgers@avengers.com",
            Bio = "I can do this all day",
-           ProfileImage = "https://ca.slack-edge.com/T6G3NJMK5-U02S94DBXLP-d199360ebd76-512",
+           ProfileImage = "https://i.pinimg.com/originals/dd/6e/03/dd6e032795a2b5c9c148fd0db0f88af3.jpg",
+           PasswordHash = hashedPassword,
            UserWins = 10,
            UserLosses = 2
        },
@@ -45,6 +51,7 @@ namespace Server.Data
            Email = "tonystark@avengers.com",
            Bio = "Genius, billionaire, playboy, philanthropist",
            ProfileImage = "https://media1.popsugar-assets.com/files/thumbor/ZCWD9YXxqYzk9riO2WR2OrxzWUw/721x0:1801x1080/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/01/098/n/46207611/5d2cc4f65d1ab1d1992803.52716266_/i/Why-Tony-Stark-Best-Marvel-Character.jpg",
+           PasswordHash = hashedPassword,
            UserWins = 3000,
            UserLosses = 1
        }
@@ -73,6 +80,15 @@ namespace Server.Data
           .OnDelete(DeleteBehavior.Cascade);
 
 
+        }
+        private string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] hashBytes = sha256.ComputeHash(passwordBytes);
+                return Convert.ToBase64String(hashBytes);  // Return the hashed password as Base64 string
+            }
         }
 
     }
