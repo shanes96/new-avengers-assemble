@@ -1,27 +1,27 @@
 <section class="user-details">
-  <div *ngFor="let profile of userProfiles" class="profile-card">
+  <div *ngIf="userProfile" class="profile-card">
     <div class="profile-header">
-      <p-avatar *ngIf="profile.profileImage" [image]="profile.profileImage" shape="circle" size="normal" class="profile-avatar"></p-avatar>
-      <h2 class="profile-name">{{ profile.name }}</h2>
-      <p class="profile-username">{{ profile.username }}</p>
+      <p-avatar *ngIf="userProfile.profileImage" [image]="userProfile.profileImage" shape="circle" size="normal" class="profile-avatar"></p-avatar>
+      <h2 class="profile-name">{{ userProfile.name }}</h2>
     </div>
-
+  
     <div class="profile-info">
-      <p><strong>Email:</strong> {{ profile.email }}</p>
-      <p><strong>Bio:</strong> {{ profile.bio }}</p>
-      <p class="record-badge">🏆 Record: {{ profile.userWins }} - {{ profile.userLosses }}</p>
+      <p><strong>Email:</strong> {{ userProfile.email }}</p>
+      <p><strong>Bio:</strong> {{ userProfile.bio }}</p>
+      <p class="record-badge">🏆 Record: {{ userProfile.userWins }} - {{ userProfile.userLosses }}</p>
     </div>
   </div>
+  
 
   <h3 class="section-title">🎬 Favorite Movies</h3>
-  <p-carousel [value]="favoriteMovies" [numVisible]="3" [circular]="true" [autoplayInterval]="3000">
-    <ng-template pTemplate="item" let-movie>
-      <div class="card movie-card">
-        <img [src]="movie.picture" alt="{{ movie.title }}" class="media-image" />
+  <p-carousel [value]="userMovies" [numVisible]="3" [circular]="true" [autoplayInterval]="3000">
+    <ng-template pTemplate="item" let-movieObj>  
+      <div class="card movie-card" *ngIf="movieObj.movie">
+        <img [src]="movieObj.movie.picture" alt="{{ movieObj.movie.title }}" class="media-image" />
         <div class="media-details">
-          <div class="media-title">{{ movie.title }}</div>
+          <div class="media-title">{{ movieObj.movie.title }}</div>
           <div class="icon-bar">
-            <div class="price-tag">${{ movie.price }}</div>
+            <div class="price-tag">${{ movieObj.movie.price }}19.99</div>
             <div class="icon-group">
               <p-button class="icon-button heart-icon"><i class="pi pi-heart"></i></p-button>
               <p-button class="icon-button cart-icon"><i class="pi pi-shopping-cart"></i></p-button>
@@ -31,16 +31,19 @@
       </div>
     </ng-template>
   </p-carousel>
+  
 
   <h3 class="section-title">📚 Favorite Comics</h3>
-  <p-carousel [value]="favoriteComics" [numVisible]="3" [circular]="true" [autoplayInterval]="3000">
-    <ng-template pTemplate="item" let-comic>
-      <div class="card comic-card">
-        <img [src]="comic.picture" alt="{{ comic.title }}" class="media-image" />
+  <p-carousel [value]="userComics" [numVisible]="3" [circular]="true" [autoplayInterval]="3000">
+    <ng-template pTemplate="item" let-comicObj>
+      <div class="card comic-card" *ngIf="comicObj.comic">
+        <img [src]="comicObj.comic.picture + '.' + comicObj.comic.extension" 
+             [alt]="comicObj.comic.title"
+             class="media-image" />
         <div class="media-details">
-          <div class="media-title">{{ comic.title }}</div>
+          <div class="media-title">{{ comicObj.comic.title }}</div>
           <div class="icon-bar">
-            <div class="price-tag">${{ comic.price }}</div>
+            <div class="price-tag">${{ comicObj.comic.price }}</div>
             <div class="icon-group">
               <p-button class="icon-button heart-icon"><i class="pi pi-heart"></i></p-button>
               <p-button class="icon-button cart-icon"><i class="pi pi-shopping-cart"></i></p-button>
@@ -50,4 +53,6 @@
       </div>
     </ng-template>
   </p-carousel>
+  
+  
 </section>
