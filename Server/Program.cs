@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using System;
+using Server.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 
-builder.Services.AddControllers(); 
 builder.Services.AddOpenApi();  
 
 // Add CORS policy
@@ -12,9 +20,12 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://localhost:8000")  
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+            .AllowAnyMethod();
         });
 });
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

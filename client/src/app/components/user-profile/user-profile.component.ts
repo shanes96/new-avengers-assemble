@@ -9,7 +9,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { TabViewModule } from 'primeng/tabview';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { CardModule } from 'primeng/card';
-import { ToggleButtonModule } from 'primeng/togglebutton';  
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 
 @Component({
@@ -21,51 +21,46 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 })
 export class UserProfileComponent implements OnInit {
   userProfiles: any[] = [];
+  userProfile: any;
+  userComics: any[] = [];
+  userMovies: any[] = [];
+  userId: number = 1;
 
   constructor(private userProfileService: UserProfileService) { }
 
   ngOnInit(): void {
-    this.userProfileService.getUserProfiles().subscribe(
-      (data) => {
-        this.userProfiles = data;
-      },
-      (error) => {
-      }
+    this.getUserProfile();
+    this.getUserComics();
+    this.getUserMovies();
+  }
+
+  getUserProfile(): void {
+    this.userProfileService.getUserProfile(this.userId).subscribe(
+      (data) => this.userProfile = data,
+      (error) => console.error('Error fetching user profile', error)
     );
   }
 
+  getUserComics(): void {
+    this.userProfileService.getUserComics(this.userId).subscribe(
+      (data) => this.userComics = data,
+      (error) => console.error('Error fetching user comics', error)
+    );
+  }
 
-  favoriteMovies = [
-    { 
-      title: 'Iron Man', 
-      picture: 'https://image.tmdb.org/t/p/original/zDN5cF6nATORm4EMUSuuwJ97DuK.jpg', 
-      price: 20 
-    },
-    { 
-      title: 'Iron Man 2', 
-      picture: 'https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p3546118_p_v10_af.jpg', 
-      price: 25 
-    }
-  ];
+  getUserMovies(): void {
+    this.userProfileService.getUserMovies(this.userId).subscribe(
+      (data) => this.userMovies = data,
+      (error) => console.error('Error fetching user movies', error)
+    );
+  }
 
-  iconHeart = 'pi pi-heart';
-  iconCart = 'pi pi-shopping-cart';
+  deleteTeam(id: number) {
+    console.log(`Deleted team with id: ${id}`);
+  }
 
-  
-favoriteComics = [
-  { title: 'Amazing Fantasy 15', picture: 'https://cdn.marvel.com/u/prod/marvel/i/mg/f/10/598363848588e/clean.jpg', price:19.99 },
-  { title: 'Fantastic Four #1', picture: 'https://m.media-amazon.com/images/I/6142Uqk5R0L._UF1000,1000_QL80_.jpg', price:19.99 }
-];
+  navigateToCreateTeam() {
+    console.log('Navigating to create team page');
+  }
 
-userTeams = [
-  { teamName: 'Avengers', id: 1, characters: [{ picture: 'path/to/ironman.jpg' }, { picture: 'path/to/captainamerica.jpg' }] }
-];
-
-deleteTeam(id: number) {
-  console.log(`Deleted team with id: ${id}`);
-}
-
-navigateToCreateTeam() {
-  console.log('Navigating to create team page');
-}
 }

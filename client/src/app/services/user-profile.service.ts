@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class UserProfileService {
   private apiUrl = 'http://localhost:5236/api/userprofile';
+  private userComicsUrl = 'http://localhost:5236/api/usercomics';
+  private userMoviesUrl = 'http://localhost:5236/api/usermovies';
 
   constructor(private http: HttpClient) { }
 
@@ -14,5 +16,15 @@ export class UserProfileService {
     return this.http.get<any>(this.apiUrl);
   }
 
-  // Optionally add POST, PUT, DELETE functions here for updating the profile
+  getUserProfile(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${userId}`);
+  }
+
+  getUserComics(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.userComicsUrl}/${userId}`);
+  }
+
+  getUserMovies(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.userMoviesUrl}/${userId}`);
+  }
 }
