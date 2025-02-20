@@ -25,8 +25,9 @@ public class AuthController : ControllerBase
 
         if (user == null || !VerifyPassword(request.Password, user.PasswordHash))
         {
-            return Unauthorized("Invalid credentials");
+            return Unauthorized(new { message = "Invalid credentials" });
         }
+
 
         var token = GenerateToken();
         var authToken = new AuthToken
@@ -34,7 +35,7 @@ public class AuthController : ControllerBase
             Token = token,
             UserId = user.Id,
             Created = DateTime.UtcNow,
-            Expires = DateTime.UtcNow.AddHours(24) 
+            Expires = DateTime.UtcNow.AddHours(24)
         };
 
         _context.AuthTokens.Add(authToken);
@@ -42,6 +43,13 @@ public class AuthController : ControllerBase
 
         return Ok(new { Token = token, UserId = user.Id });
     }
+
+    private static bool VerifyPassword(string enteredPassword, string storedHash)
+    {
+        return BCrypt.Net.BCrypt.Verify(enteredPassword, storedHash);
+    }
+
+
     [HttpPost("logout")]
     public IActionResult Logout()
     {
@@ -65,8 +73,4 @@ public class AuthController : ControllerBase
         return Convert.ToBase64String(tokenBytes);
     }
 
-    private bool VerifyPassword(string enteredPassword, string storedHash)
-    {
-        return enteredPassword == storedHash; 
-    }
 }

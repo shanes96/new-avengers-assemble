@@ -12,8 +12,8 @@ using Server.Data;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250212170325_AddAuthTokenTable")]
-    partial class AddAuthTokenTable
+    [Migration("20250220214821_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -228,6 +228,10 @@ namespace Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ProfileImage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -249,7 +253,8 @@ namespace Server.Migrations
                             Bio = "I can do this all day",
                             Email = "steverodgers@avengers.com",
                             Name = "Steve Rodgers",
-                            ProfileImage = "https://ca.slack-edge.com/T6G3NJMK5-U02S94DBXLP-d199360ebd76-512",
+                            PasswordHash = "$2a$11$6BlTIbtlRPB6rdkq8jm.c.gjGzRe8dHhL.LrOP13GJp8sRopH9PRe",
+                            ProfileImage = "https://i.pinimg.com/originals/dd/6e/03/dd6e032795a2b5c9c148fd0db0f88af3.jpg",
                             UserLosses = 2,
                             UserWins = 10
                         },
@@ -259,6 +264,7 @@ namespace Server.Migrations
                             Bio = "Genius, billionaire, playboy, philanthropist",
                             Email = "tonystark@avengers.com",
                             Name = "Tony Stark",
+                            PasswordHash = "$2a$11$3tImz.tyXTiEK/Dnv0e.SelbyPzRKyNgYG0M3BUbzdQ5I9.v6xM4G",
                             ProfileImage = "https://media1.popsugar-assets.com/files/thumbor/ZCWD9YXxqYzk9riO2WR2OrxzWUw/721x0:1801x1080/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/01/098/n/46207611/5d2cc4f65d1ab1d1992803.52716266_/i/Why-Tony-Stark-Best-Marvel-Character.jpg",
                             UserLosses = 1,
                             UserWins = 3000
