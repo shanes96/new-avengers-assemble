@@ -1,0 +1,35 @@
+<div class="background">
+  <div class="container">
+    <img id="login-spiderman-image" class="spider-man" src="https://i.ibb.co/XDFkXMx/spiderman-colgado.png"
+      alt="Spider-Man" />
+    <div class="shadow"></div>
+  </div>
+
+  <div class="login-card">
+    <h2>Login</h2>
+    <form>
+      <div class="input-group">
+        <i class="pi pi-envelope"></i>
+        <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required>
+      </div>
+      <div class="input-group">
+        <i class="pi pi-lock"></i>
+        <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
+      </div>
+  
+      <div class="remember-reset-container">
+        <div class="remember-me">
+          <label>
+            <input type="checkbox" id="remember-me">
+            Remember Me
+          </label>
+        </div>
+        <a href="#" class="reset-password">Reset Password</a>
+      </div>
+  
+      <button type="button" class="login-button" (click)="login()">Log In</button>
+      <!-- <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p> -->
+    </form>
+  </div>
+  
+</div>
