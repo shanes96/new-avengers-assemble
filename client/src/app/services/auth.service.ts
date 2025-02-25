@@ -49,15 +49,24 @@ export class AuthService {
   };
 
   // Fetch user data from the backend
-  fetchUserData = async (): Promise<any> => {
+  fetchUserData = async (userId: number): Promise<any> => {
     const token = this.getAuthToken();
     if (!token) throw new Error('No token found');
-    const response = await fetch('http://localhost:5236/api/user/profile', {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-    if (!response.ok) throw new Error('Failed to fetch user data');
-    return await response.json();
+    
+    try {
+      const response = await fetch(`http://localhost:5236/api/user/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch user data. Status: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error in fetchUserData:', error);
+      throw error;
+    }
   };
+  
 }

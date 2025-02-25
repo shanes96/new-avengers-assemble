@@ -28,6 +28,8 @@ public class AuthController : ControllerBase
             return Unauthorized(new { message = "Invalid credentials" });
         }
 
+        user.IsLoggedOn = true;
+        _context.SaveChanges();
 
         var token = GenerateToken();
         var authToken = new AuthToken
@@ -41,7 +43,7 @@ public class AuthController : ControllerBase
         _context.AuthTokens.Add(authToken);
         _context.SaveChanges();
 
-        return Ok(new { Token = token, UserId = user.Id });
+        return Ok(new { Token = token, UserId = user.Id, user.IsLoggedOn });
     }
 
     private static bool VerifyPassword(string enteredPassword, string storedHash)
