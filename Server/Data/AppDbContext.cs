@@ -53,7 +53,8 @@ namespace Server.Data
                     ProfileImage = "https://i.pinimg.com/originals/dd/6e/03/dd6e032795a2b5c9c148fd0db0f88af3.jpg",
                     PasswordHash = hashedPassword1,
                     UserWins = 10,
-                    UserLosses = 2
+                    UserLosses = 2,
+                    IsLoggedOn = null
                 },
                 new UserProfile
                 {
@@ -64,7 +65,8 @@ namespace Server.Data
                     ProfileImage = "https://media1.popsugar-assets.com/files/thumbor/ZCWD9YXxqYzk9riO2WR2OrxzWUw/721x0:1801x1080/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/07/01/098/n/46207611/5d2cc4f65d1ab1d1992803.52716266_/i/Why-Tony-Stark-Best-Marvel-Character.jpg",
                     PasswordHash = hashedPassword2,
                     UserWins = 3000,
-                    UserLosses = 1
+                    UserLosses = 1,
+                    IsLoggedOn = null
                 }
             );
 

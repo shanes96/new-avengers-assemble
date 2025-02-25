@@ -12,5 +12,6 @@
         public ICollection<UserMovie> FavoriteMovies { get; set; }
         public int? UserWins { get; set; }
         public int? UserLosses { get; set; }
+        public bool? IsLoggedOn { get; set; }
     }
 }

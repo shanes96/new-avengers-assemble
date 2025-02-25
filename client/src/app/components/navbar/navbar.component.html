@@ -14,18 +14,29 @@
 
   <ng-template #end>
     <div class="menu-end">
-      <input type="text" pInputText placeholder="Search" class="search-bar" (input)="onSearch($event)" />
+      <input 
+        type="text" 
+        pInputText 
+        placeholder="Search" 
+        class="search-bar" 
+        (input)="onSearch($event)" 
+      />
   
-      <ng-container *ngFor="let profile of userProfiles">
-        <p-avatar *ngIf="profile.profileImage" [image]="profile.profileImage" shape="circle" class="avatar"></p-avatar>
+      <ng-container *ngIf="isLoggedOn">
+        <ng-container *ngFor="let profile of userProfiles">
+          <p-avatar 
+            *ngIf="profile.isLoggedOn && profile.profileImage" 
+            [image]="profile.profileImage" 
+            shape="circle" 
+            class="avatar" 
+            (click)="menu.toggle($event)">
+          </p-avatar>
+        </ng-container>
       </ng-container>
   
-      <p-tieredMenu [model]="userMenu" popup #menu></p-tieredMenu>
+      <p-menu #menu [popup]="true" [model]="userMenuItems"></p-menu>
     </div>
   </ng-template>
   
-
-<div *ngIf="!isLoggedIn" class="auth-buttons">
-  <a pButton label="Login" routerLink="/login" class="p-button p-mr-2"></a>
-  <a pButton label="Register" routerLink="/register" class="p-button"></a>
-</div>
+  
+  
